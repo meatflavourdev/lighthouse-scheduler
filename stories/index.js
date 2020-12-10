@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
@@ -11,6 +11,13 @@ import DayList from 'components/DayList';
 import InterviewerList from 'components/InterviewerList';
 import InterviewerListItem from 'components/InterviewerListItem';
 import Appointment from 'components/Appointment';
+import Header from 'components/Appointment/Header';
+import Empty from 'components/Appointment/Empty';
+import Show from 'components/Appointment/Show';
+import Confirm from 'components/Appointment/Confirm';
+import Status from 'components/Appointment/Status';
+import Error from 'components/Appointment/Error';
+import Form from 'components/Appointment/Form';
 
 storiesOf('Button', module)
   .addParameters({
@@ -79,7 +86,7 @@ storiesOf('InterviewerListItem', module)
       id={interviewer.id}
       name={interviewer.name}
       avatar={interviewer.avatar}
-      setInterviewer={action('setInterviewer')(interviewer.id)}
+      onChange={action('setInterviewer')(interviewer.id)}
     />
   ));
 
@@ -95,9 +102,9 @@ storiesOf('InterviewerList', module)
   .addParameters({
     backgrounds: [{ name: 'dark', value: '#222f3e', default: true }],
   })
-  .add('Initial', () => <InterviewerList interviewers={interviewers} setInterviewer={action('setInterviewer')} />)
+  .add('Initial', () => <InterviewerList interviewers={interviewers} onChange={action('setInterviewer')} />)
   .add('Preselected', () => (
-    <InterviewerList interviewers={interviewers} interviewer={3} setInterviewer={action('setInterviewer')} />
+    <InterviewerList interviewers={interviewers} value={3} onChange={action('setInterviewer')} />
   ));
 
 storiesOf('Appointment', module).addParameters({
@@ -105,3 +112,29 @@ storiesOf('Appointment', module).addParameters({
 })
 .add("Appointment", () => <Appointment />)
 .add("Appointment with Time", () => <Appointment time="12pm" />)
+.add("Appointment Empty", () => (
+  <Fragment>
+    <Appointment id={1} time="12pm" />
+    <Appointment id="last" time="1pm" />
+  </Fragment>
+))
+.add("Appointment Booked", () => (
+  <Fragment>
+    <Appointment
+      id={1}
+      time="12pm"
+      interview={{ student: "Lydia Miller-Jones", interviewer }}
+    />
+    <Appointment id="last" time="1pm" />
+  </Fragment>
+))
+.add("Header", () => <Header time="12pm" />)
+.add("Empty", () => <Empty onAdd={action('onAdd')} />)
+.add("Show", () => <Show student="Jeremy Dombrowski" interviewer={ interviewers[4] } onEdit={action('onEdit')} onDelete={action('onDelete')} />)
+.add("Confirm", () => <Confirm message="Delete the appointment?" onConfirm={action('onConfirm')} onCancel={action('onCancel')} />)
+.add("Saving", () => <Status message="Saving" />)
+.add("Deleting", () => <Status message="Deleting" />)
+.add("Error Saving", () => <Error message="Could not save appointment." onClose={action('onClose')} />)
+.add("Error Deleting", () => <Error message="Could not delete appointment." onClose={action('onClose')} />)
+.add("Form Create", () => <Form interviewers={interviewers} onSave={action('onSave')} onCancel={action('onCancel')} />)
+  .add("Form Edit", () => <Form interviewers={interviewers} name="Jeremy Dombrowski" interviewer={3} onSave={action('onSave')} onCancel={action('onCancel')} />)
