@@ -8,25 +8,9 @@ export const getAppointmentsForDay = function (state, day) {
   return result
 }
 
-/*
-{
-  "student": "Lydia Miller-Jones",
-  "interviewer": {
-    "id": 1,
-    "name": "Sylvia Palmer",
-    "avatar": "https://i.imgur.com/LpaY82x.png"
-  }
-}
- */
 export const getInterview = function (state, interview) {
-  //console.log('state', state)
-  //console.log('interview', interview)
   return !interview ? null : {
-    "student": "Lydia Miller-Jones",
-    "interviewer": {
-      "id": 1,
-      "name": "Sylvia Palmer",
-      "avatar": "https://i.imgur.com/LpaY82x.png"
-    }
+    ...interview,
+    "interviewer": state.interviewers[interview.interviewer]
   }
 }
