@@ -45,6 +45,7 @@ export default function useApplicationData() {
     return axios.put(`${HOST}/api/appointments/${id}`, { interview: { ...interview } })
       .then((value) => {
         setState({ ...state, appointments })
+        updateDays()
       })
       .catch((err) => console.log('ERROR', err))
   }
@@ -61,6 +62,14 @@ export default function useApplicationData() {
     return axios.delete(`${HOST}/api/appointments/${id}`)
     .then((value) => {
       setState({ ...state, appointments })
+      updateDays()
+    })
+  }
+
+  function updateDays() {
+    axios.get(HOST + '/api/days')
+      .then((result) => {
+        setState((prev) => ({ ...prev, days: result.data}))
     })
   }
 
