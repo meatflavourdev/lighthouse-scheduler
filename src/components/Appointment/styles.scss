@@ -67,8 +67,8 @@ $appointment-height: 11rem;
         90deg,
         rgba($booked-color, $active-opacity),
         rgba($booked-color, $active-opacity) 8px,
-        rgba($booked-color, $inactive-opacity) 0,
-        rgba($booked-color, $inactive-opacity)
+        rgba($booked-color, 0.22) 0,
+        rgba($booked-color, 0.21)
       );
 
       &:hover {
@@ -113,7 +113,7 @@ $appointment-height: 11rem;
     &-button {
       @include button-inactive--opacity;
       margin-right: 0.5rem;
-      display: none;
+      opacity: 0.9;
 
       &:hover {
         @include button-active--opacity;
