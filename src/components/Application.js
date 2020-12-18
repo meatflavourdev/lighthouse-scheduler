@@ -40,7 +40,7 @@ export default function Application(props) {
         </nav>
         <img className="sidebar__lhl sidebar--centered" src="images/lhl.png" alt="Lighthouse Labs" />
       </section>
-      <section className="schedule">
+      <section className="schedule" data-testid="applist">
         {schedule}
         <Appointment key="last" time="5pm" />
       </section>

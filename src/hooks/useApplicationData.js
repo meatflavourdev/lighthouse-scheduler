@@ -19,12 +19,13 @@ export default function useApplicationData() {
 
   useEffect(() => {
     Promise.all([
-      axios.get(HOST + '/api/days'),
-      axios.get(HOST + '/api/appointments'),
-      axios.get(HOST + '/api/interviewers')
+      axios.get('/api/days'),
+      axios.get('/api/appointments'),
+      axios.get('/api/interviewers')
     ]).then((result) => {
       setState((prev) => ({ ...prev, days: result[0].data, appointments: result[1].data, interviewers: result[2].data }))
     })
+    .catch((err) => console.log('AXIOS ERROR:', err))
   }, [state.day]);
 
   function setDay(day) {
@@ -64,13 +65,15 @@ export default function useApplicationData() {
       setState({ ...state, appointments })
       updateDays()
     })
+    .catch((err) => console.log('ERROR', err))
   }
 
   function updateDays() {
     axios.get(HOST + '/api/days')
       .then((result) => {
         setState((prev) => ({ ...prev, days: result.data}))
-    })
+      })
+      .catch((err) => console.log('ERROR', err))
   }
 
   return {
