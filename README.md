@@ -6,7 +6,7 @@
 
 Create a modern client application using the React view library.
 
-<iframe src="https://player.vimeo.com/video/333496141" width="854" height="480" frameborder="0" allow="autoplay; fullscreen" allowfullscreen="" style="box-sizing: border-box;"></iframe>
+[![Interview Scheduler Preview](https://i.imgur.com/9E9pgHS.jpg)](https://player.vimeo.com/video/333496141)
 
 ## Getting Started
 
